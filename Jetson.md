@@ -1,63 +1,65 @@
-# ml-env-setup for windows
+# ml-env-setup for jetsonn nano
 
-Download these
+## for setup env for training
 
 ```Shell
-https://aka.ms/vs/16/release/vc_redist.x64.exe
+sudo apt-get update
 ```
 
 ```Shell
-https://developer.nvidia.com/compute/cuda/10.1/Prod/local_installers/cuda_10.1.105_418.96_win10.exe
+sudo apt-get install git cmake libpython3-dev python3-numpy
 ```
 
 ```Shell
-https://developer.nvidia.com/compute/machine-learning/cudnn/secure/7.6.5.32/Production/10.1_20191031/cudnn-10.1-windows10-x64-v7.6.5.32.zip
-```
-
-Then
-
-```Shell
-conda create -n tf_gpu python=3.6
+git clone --recursive https://github.com/dusty-nv/jetson-inference
 ```
 
 ```Shell
-conda activate tf_gpu
+cd jetson-inference
 ```
 
 ```Shell
-pip install ipykernel
+mkdir build
 ```
 
 ```Shell
-python -m ipykernel install --user --name tf_gpu --display-name "tf_gpu"
+cd build
 ```
 
 ```Shell
-nvcc -V
+cmake ../
 ```
 
 ```Shell
-conda search cudnn
+make -j$(nproc)
 ```
 
 ```Shell
-conda install cudnn=7.6.5=cuda10.1_0
+sudo make install
 ```
 
-## for tensorflow
-
 ```Shell
-pip install tensorflow-gpu
+sudo ldconfig
 ```
 
-## for pytorch
+## for training own data
 
 ```Shell
-pip install torch==1.4.0 torchvision==0.5.0 -f https://download.pytorch.org/whl/cu101/torch_stable.html
+docker/run.sh
 ```
 
-or
+```Shell
+cd python/training/detection/ssd
+```
 
 ```Shell
-pip install torch_nightly -f https://download.pytorch.org/whl/nightly/cu90/torch_nightly.html
+python3 train_ssd.py --dataset-type=voc --data=data/sauvc_flyer --model-dir=models/dummy --epochs=5 --workers=0 --batch-size=4
+```
+
+```Shell
+python3 onnx_export.py --model-dir=models/dummy
+```
+
+```Shell
+detectnet --model=models/dummy/ssd-mobilenet.onnx --labels=models/dummy/labels.txt --input-blob=input_0 --output-cvg=scores --output-bbox=boxes csi://0
 ```
