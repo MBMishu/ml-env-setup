@@ -61,5 +61,5 @@ python3 onnx_export.py --model-dir=models/dummy
 ```
 
 ```Shell
-detectnet --model=models/dummy/ssd-mobilenet.onnx --labels=models/dummy/labels.txt --input-blob=input_0 --output-cvg=scores --output-bbox=boxes csi://0
+detectnet --model=models/dummy/ssd-mobilenet.onnx --labels=models/dummy/labels.txt --input-blob=input_0 --output-cvg=scores --output-bbox=boxes /dev/video0
 ```
