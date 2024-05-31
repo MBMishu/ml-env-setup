@@ -61,3 +61,13 @@ or
 ```Shell
 pip install torch_nightly -f https://download.pytorch.org/whl/nightly/cu90/torch_nightly.html
 ```
+
+backup env list
+
+```Shell
+conda env export > environment.yml
+```
+
+```Shell
+conda env create -f environment.yml
+```
