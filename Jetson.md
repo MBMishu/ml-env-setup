@@ -47,6 +47,11 @@ sudo ldconfig
 ```Shell
 docker/run.sh
 ```
+in jetson orin 
+Edit the file "run.sh" with your favorite text editor
+Add the following line at line 187 and before 200
+
+CONTAINER_IMAGE='dustynv/jetson-inference:r36.3.0'
 
 ```Shell
 cd python/training/detection/ssd
