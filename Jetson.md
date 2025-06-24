@@ -41,6 +41,13 @@ sudo make install
 ```Shell
 sudo ldconfig
 ```
+```Shell
+pip3 install "numpy==1.24.4" --upgrade --no-deps
+```
+```Shell
+sudo apt update
+sudo apt install python3-opencv libopencv-dev -y
+```
 
 ## for training own data
 
